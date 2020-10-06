@@ -1,0 +1,14 @@
+
+<p>
+    <strong>Nombre:</strong>
+    <%= @comuna.nombre %>
+</p>
+
+
+<br>
+<%= button_to 'Editar comuna', { :action => "edit" }, :method => :get%>
+<br>
+<%= link_to 'Eliminar comuna', comuna_path(@comuna.id), method: :delete, data: { confirm: 'Estas segur@?'} %>
+<br>
+<br>
+<%= button_to "Lista de comunas", { :action => "index" }, :method => :get %>

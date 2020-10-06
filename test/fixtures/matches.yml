@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_matcher: 1
+  id_matched: 1
+  status: false
+
+two:
+  id_matcher: 1
+  id_matched: 1
+  status: false

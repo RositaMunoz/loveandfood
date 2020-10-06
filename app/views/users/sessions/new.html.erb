@@ -1,0 +1,39 @@
+<br>
+<br>
+<br>
+<div class='columns'>
+	<div class='column is-one-third'></div>
+	<div class='column'>
+    <h4 class='title is-4'>Ingresa a tu cuenta</h4>
+
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <label class="label"><%= f.label :email %></label>
+        <div class="control">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input' %>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class='label'><%= f.label "Contraseña" %></label>
+        <%= f.password_field :password, autocomplete: "current-password", class:'input' %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label "Recordar mi cuenta" %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Ingresar",class:'button is-link'%>
+      </div>
+    <% end %>
+    <br>
+
+    <%= render "users/shared/links" %>
+  </div>
+  <div class='column'></div>
+</div>

@@ -1,0 +1,24 @@
+
+<p>
+<strong>Contenido:</strong>
+<%= @comentario.mensaje %>
+</p>
+
+<p>
+<strong>Fecha de creación:</strong>
+<%= local_time(@comentario.created_at) %>
+</p>
+
+<p>
+<strong>Fecha de edición:</strong>
+<%= local_time(@comentario.updated_at) %>
+</p>
+
+
+<br>
+<%= button_to 'Editar comentario', { :action => "edit" }, :method => :get%>
+<br>
+<%= link_to 'Eliminar comentario', comentario_path(@comentario.id), method: :delete, data: { confirm: 'Estas segur@?'} %>
+<br>
+<br>
+<%= button_to "Listado de comentarios", { :action => "index" }, :method => :get %>

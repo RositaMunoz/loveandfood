@@ -1,0 +1,37 @@
+<br>
+<br>
+<br>
+<div class='columns'>
+	<div class='column is-one-fifth'></div>
+	<div class='column'>
+        <h4 class='title is-4'> Gustos </h4>
+        <div class='table-container'>
+          <table class='table is-bordered is-striped is-narrow is-hoverable is-fullwidth'>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th colspan="3"> Acciones </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @gustos.each do |gusto| %>
+                <tr>
+                  <td><%= gusto.nombre %></td>
+                  <td><%= gusto.descripcion %></td>
+                  <td><%= gusto.tipo %></td>
+                  <td><%= link_to 'Editar gusto', {:controller => "gustos", :action => "edit", :id => gusto.id} , :method=>:get%> </td>
+                  <td><%= link_to 'Eliminar gusto', gusto_path(gusto.id), method: :delete, data: { confirm: 'Estas segur@?'} %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <br>
+
+        <%= link_to 'Crear Gusto', gustos_new_path %>
+  </div>
+  <div class='column is-one-fifth'></div>
+</div>

@@ -1,0 +1,33 @@
+<br>
+<br>
+<br>
+<div class='columns'>
+	<div class='column is-one-third'></div>
+	<div class='column'>
+    <h4 class='title is-4'>Editar gusto</h4>
+
+    <%= form_with(model: @gusto, url: gusto_path(@gusto.id), method: :patch) do |form| %>
+      <div class="field">
+        <label class='label'><%= form.label :nombre %></label>
+        <%= form.text_field :nombre, class:'input' %>
+      </div>
+
+      <div class="field">
+        <label class='label'><%= form.label :descripcion %></label>
+        <%= form.text_field :descripcion, class:'input' %>
+      </div>
+
+      <div>
+        <label class='label'><%= form.label 'Tipo' %></label>
+        <%= form.select :tipo, ['Deporte', 'Musica', 'Comida', 'Genero de pelicula'], class:'form-control'%>
+      </div>
+
+      <div class="actions">
+        <%= form.submit 'Editar el gusto', class: 'button is-link'%>
+      </div>
+    <% end %>
+    <br>
+    <%= link_to 'Volver', gustos_path %> 
+  </div>
+  <div class='column'></div>
+  </div>

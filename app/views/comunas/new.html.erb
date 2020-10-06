@@ -1,0 +1,24 @@
+<br>
+<br>
+<br>
+<div class='columns'>
+	<div class='column is-one-third'></div>
+	<div class='column'>
+        <h4 class='title is-4'>Crear comuna</h4>
+
+        <%= form_with(model: @comunas, method: :post) do |form| %>
+            <div class='field'>
+                <label class='label'><%= form.label :nombre %></label>
+                <%= form.text_field :nombre, class:'input' %>
+            </div>
+
+            <div class="actions">
+                <%= form.submit 'Crear comuna', class:'button is-link' %>
+            </div>
+        <% end %>
+
+        <br>
+        <%= button_to "Lista de comunas", { :action => "index" }, :method => :get, class:'button is-link is-light' %>
+    </div>
+    <div class='column'></div>
+</div>

@@ -1,0 +1,16 @@
+<h1>Edita la cita </h1>
+
+<%= form_with(model: @appointments, method: :patch) do |form| %>
+    <div class='field'>
+	    <%= form.label :fecha %>
+	    <%= date_field(:appointment, :fecha) %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>
+
+<br>
+
+<%= button_to "Todas las citas", { :action => "index" }, :method => :get %>

@@ -1,0 +1,127 @@
+
+<section id="seccion-usuarios">
+
+<%filtro_id = nil%>
+<%@filtros = Filtro.all%>
+<%@filtros.each do |filtro|%>
+	<%if filtro.user_id == current_user.id%>
+    	<%filtro_id = filtro.id%>
+    	<%@filtro = filtro%>
+    <%end%>
+<%end%>
+
+<div class='columns'>
+	<div class='column is-one-fifth', id="columna-filtros">
+
+		<p class="filters-title">Filtros de búsqueda</p>
+
+		<%= form_with(model: @filtro, url: filtro_path(@filtro.id), method: :patch) do |form| %>
+		    <div class='field'>
+			    <%= form.label "Edad mínima" %><br>
+			    <%= form.number_field :edad_min, min: 18, max: 99%>
+		    </div>
+
+		    <div class='field'>
+			    <%= form.label "Edad máxima" %><br>
+			    <%= form.number_field :edad_max, min: 18, max: 99%>
+		    </div>
+
+		    <div class='field'>
+		        <%= form.label "Género" %>
+		        <%= form.select :genero, Filtro.genders_for_select, {}, class: "form-control" %>
+		      </div>
+
+		    <div class="field">
+		        <%=form.label "Comuna" %><br>
+		        <%= form.collection_select :comuna, Comuna.all, :id, :nombre, prompt: true, class: "form-control" %>
+		    </div>
+
+		    <div>
+		      <%= form.label 'Aplicar filtro por gustos' %><br />
+		      <%= form.select :gustos, ['Si', 'No']%>
+		    </div>
+		    <br>
+		    <div class="actions">
+		        <%= form.submit "Actualizar", class:'button is-link' %>
+		    </div>
+		<% end %>
+	</div>
+	<div class='column' >
+	<h2 class="title is-4">Resultados</h2>
+<div class="boxes-users">
+	<% @users.each do |user| %>
+
+		<%if not current_user.username == user.username%>
+			<div class="box">
+
+
+				<div id="foto-usuario">
+				<figure class="image is-64x64">
+					<%if user.foto_perfil.attached?%>
+					<%= cl_image_tag(user.foto_perfil.key, :class=>"imagen-rounded") %>
+					<%else%>
+      				<%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_dqc7ji.png", :class=>"imagen-rounded")%>
+					<%end%>
+				</figure>
+				</div>
+
+
+				<div class="content" id="contenido-usuario">
+					<p>
+					<strong><%=user.username%></strong> <small><%=user.age%> años</small>
+					<br>
+					<%= truncate(user.description, :length => 50)%>
+					</p>
+				</div>
+				<div class="acciones">
+
+					<a class="acciones-content" >
+						<%= link_to 'Ver perfil', especific_user_path(user.id), class: 'button is-small',id: 'boton-index-usuarios'  %>
+					</a>
+					<a class="acciones-content">
+						<%= link_to cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/heart_euhw5o.svg', :class=>"like-button"), 
+						{:controller => "matches", :action => "create", :matcher_id => current_user.id, :matched_id=> user.id} , :method=>:post%>
+					</a>
+
+				</div>
+
+
+
+
+
+					<%if @filtro.gustos == "Si"%>
+						<%en_comun = [] %>
+						<% if current_user.deporte == user.deporte %>
+							<%en_comun << user.deporte%>
+						<%end%>
+						<% if current_user.musica == user.musica %>
+							<%en_comun << user.musica%>
+						<%end%>
+	        			<% if current_user.comida == user.comida%>
+	       					<%en_comun << user.comida%>
+	       				<%end%>
+	       				<% if current_user.genero_pelicula == user.genero_pelicula%>
+	       					<%en_comun << user.genero_pelicula%>
+						<%end%>
+						<%= "Gustos en común : "%><br>
+						<%cantidad = 0%>
+						<%en_comun.each do |gusto|%>
+							<%if cantidad == 2%>
+								<br><br>
+							<%end%>
+							<span class="tag is-primary is-medium is-light"><%="##{gusto}"%></span>
+							<%cantidad += 1%>
+						<%end%>
+					<%end%>
+</div>
+
+
+
+
+		<%end%>
+	<%end%>
+	</div>
+	</div>
+
+</div>
+</section>

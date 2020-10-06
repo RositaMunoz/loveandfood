@@ -1,0 +1,116 @@
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+ </head>
+
+ <section class="hero is-primary is-medium">
+
+
+  <div class="hero-body">
+    <div class="logo-box">
+        <%=image_tag("logo.png", class: "logo")%>
+    </div>
+    <div class="container-title">
+      <%if current_user%>
+        <%if current_user.role == 'user'%>
+          <h1 class="title">Love & Food</h1>
+
+          <%if current_user.role == 'user'%>
+          <div class ="boton-principal">
+          <%= link_to 'Inicia tu viaje', list_users_path, class: "button", id: "boton-inicio"   %></div>
+          <%end%>
+
+        <%elsif current_user.role == 'admin'%>
+          <h1 class="title">Love&Food</h1>
+          <h2 class ="subtitle">Bienvenide Administrador</h2>
+        <%end%>
+      <%else%>
+        <h1 class="title">Love & Food</h1>
+        <h2 class="subtitle">Encuentra el amor</h2>
+      <%end%>
+    </div>
+  </div>
+</section>
+<section class = "explorar">
+
+<%if current_user%>
+  <div class="nav-center">
+  <%if current_user.role == 'user'%>
+
+
+
+  <%elsif current_user.role == 'admin'%>
+  <div class= "container has-text-centered">
+  <div class="subtitle is-4"> Explora nuestra página</div>
+  <%n_postulaciones = 0%>
+  <%establecimientos = Establecimiento.all%>
+  <%establecimientos.each do |establecimiento|%>
+      <%if establecimiento.aceptado == 'pendiente'%>
+      <%n_postulaciones +=1%>
+      <%end%>
+      <%end%>
+
+
+      <%= link_to 'Inicia tu viaje', list_users_path, class: "button", id: "boton-explora"  %>
+      <%= link_to 'Administra Comunas', list_comunas_path, class: "button", id: "boton-explora"  %>
+      <%= link_to 'Administra Comentarios', list_comentarios_path, class: "button", id: "boton-explora"  %>
+      <%= link_to 'Administra Gustos', gustos_new_path, class: "button", id: "boton-explora"  %>
+      <%= link_to "Administra Restaurantes (#{n_postulaciones})",  list_establecimientos_path, class: "button", id: "boton-explora"%>
+      <%= link_to 'Ver mis citas', list_appointments_path, class: "button", id: "boton-explora"%>
+  <%end%>
+  </div>
+  </div>
+
+<%else%>
+<%end%>
+<div class = "restaurant-inicio">
+    <div class="subtitle is-4"> Explora algunos de nuestros Restaurantes</div>
+     <%= link_to 'Ver todos los Restaurantes',  list_establecimientos_path, class: "button", id: "boton-explora"   %>
+    <%establecimientos = Establecimiento.all%>
+    <% contador = 0%>
+
+<div class="restaurant-cards">
+        <%establecimientos.each do |establecimiento|%>
+        <% if contador<= 3%>
+
+            <%if establecimiento.aceptado == 'aceptado'%>
+                <div class = "card">
+            <div class= "card-image">
+                <figure class ="image is 128x128">
+          <%if establecimiento.profile_image.attached?%>
+                <%= cl_image_tag(establecimiento.profile_image.key) %>
+                <%else%>
+                <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_rest_qesumv.jpg")%>
+                <%end%>
+                </div>
+        <div class ="card-header-title"><%= establecimiento.nombre %></div>
+        <div class = "card-content-inicio"><%= establecimiento.tipo%></div>
+        <div class = "card-content-inicio"><strong>Calificación: </strong>
+            <%= establecimiento.valoracion %><span class="icon has-text-warning">
+            <i class="fas fa-star"></i></span></div>
+        <div class ="card-footer"> <%= link_to 'Ver', establecimiento_path(establecimiento.id) %></div>
+      </div>
+
+      <%puts contador%>
+      <%contador +=1%>
+    <%end%>
+
+    <%end%>
+
+    <%end%>
+
+    </div>
+
+    </div>
+    <%if user_signed_in? %>
+<%= link_to 'Postular mi Restaurant', establecimientos_new_path, class: "button", id: "boton-explora"   %>
+
+<%else %>
+<%= link_to 'Postular mi Restaurant', new_user_session_path, class: "button", id: "boton-explora"   %>
+<%end%>
+
+</section>

@@ -1,0 +1,48 @@
+
+<div class='columns'>
+<div class='column is-one-fifth'></div>
+<div class='column'>
+    <h4 class="name-restaurant">Todos los comentarios</h4>
+    <hr class="solid">
+    <%@establecimientos = Establecimiento.all%>
+    <% @establecimientos.each do |establecimiento| %>
+        <%cant_com = Comentario.where(negocio_id: establecimiento.id)%>
+            <%if cant_com.count > 0%>
+                <h4 class="title is-4"><%=link_to establecimiento.nombre, establecimiento_path(establecimiento.id)%></h4>
+                <div class="boxes-com">
+                <% @comentarios.each do |comentario| %>
+                <% if comentario.negocio_id ==  establecimiento.id %>
+                <div class ="box">
+                    <div class="right-element">
+                        <%if comentario.updated_at.to_s > comentario.created_at.to_s%>
+                            <%= comentario.updated_at.in_time_zone("America/New_York").strftime("Editado el %d/%m/%Y, a las %H:%M hrs.")%>
+                        <%else%>
+                            <%= comentario.created_at.in_time_zone("America/New_York").strftime("Publicado el %d/%m/%Y, a las %H:%M hrs.")%>
+                        <%end%>
+                    </div>
+                    <%user = User.find_by(id:comentario.user_id)%>
+                    <div id="contenido-comentario">
+                        <div><strong><%=link_to user.username, especific_user_path(user.id)%></strong></div>
+                        <div><%=comentario.mensaje%></div>
+                        <div>Calificación: <strong><%=comentario.rating%></strong>
+                        <%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/star_lbotkx.svg', :class=>"estrella")%></div>
+                    </div>
+                    <br>
+
+                    <%if user_signed_in?%>
+                        <%if current_user.role == 'admin'%>
+                            <div id="btn-com"><%= link_to 'Eliminar comentario', comentario_path(comentario.id), method: :delete, data: { confirm: 'Estas segur@?'}, class:"button is-small" %></div>
+                        <%end%>
+                    <%end%>
+                </div>
+                <%end%>
+                <%end%>
+                </div>
+            <%end%>
+
+    <%end%>
+
+
+</div>
+<div class='column is-one-fifth'></div>
+</div>

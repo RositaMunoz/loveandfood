@@ -1,0 +1,138 @@
+<div class='columns'>
+	<div class='column is-one-fifth'></div>
+	<div class='column'>
+		<h4 class="name-restaurant"><%=@establecimiento.nombre%></h4>
+		<hr class="solid">
+		<div class="under-title">
+			<%=@establecimiento.valoracion%><%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/star_lbotkx.svg', :class=>"estrella")%>
+			<span class="vl"></span>
+			<%@opiniones = Comentario.where(negocio_id: @establecimiento.id)%>
+			<%@suma = @opiniones.count%>
+			<%=@suma.to_s + " opiniones"%>
+			<span class="vl"></span>
+			<%=@establecimiento.tipo%>
+		</div>
+		<div class='columns'>
+			<div class='column is-half'>
+			<%if @establecimiento.profile_image.attached?%>
+				<%= cl_image_tag(@establecimiento.profile_image.key) %>
+			<%else%>
+				<%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_rest_qesumv.jpg")%>
+			<%end%>
+			</div>
+			<div class='column is-half'>
+				<div class="label-est"><strong>Descripción: </strong><%= @establecimiento.descripcion %></div>
+				<%if user_signed_in?%>
+					<%if current_user.role == 'admin' or current_user.id == @establecimiento.user_id%>
+						<%n_citas = 0%>
+						<%@appointments = Appointment.all%>
+						<%@appointments.each do |appointment|%>
+							<% if appointment.accomplished == true && appointment.establecimiento_id == @establecimiento.id %>
+								<%n_citas += 1%>
+							<%end%>
+						<%end%>
+						<div class="label-est"><strong>Citas realizadas aquí: </strong><%= n_citas%></div>
+						<div id="edit-est"><%= button_to 'Editar Restaurant', { :action => "edit" }, :method => :get, class:'button is-link'%></div>
+						<div id="delete-est"><%= link_to 'Eliminar Restaurant', establecimiento_path(@establecimiento.id), method: :delete, data: { confirm: 'Estas segur@?'} , class:"button is-danger"%></div>
+					<%end%>
+					<%if current_user.role == 'admin' && @establecimiento.aceptado == "pendiente"%>
+						<%= form_with(model: @establecimiento, method: :patch) do |form| %>
+							<%= form.hidden_field :aceptado, value: "aceptado" %>
+							<div class="actions">
+							<%= form.submit "Aceptar Restaurant", class: 'button', id: 'boton-index-usuarios' %>
+							</div>
+						<%end%>
+					<%end%>
+				<%end%>
+			</div>
+
+		</div>
+		<div class="columns">
+			<div class="column is-half">
+				<div class="label-est"><strong>Menú del restaurant</strong></div>
+				<%if @establecimiento.images.attached?%>
+					<%=cloudinary_url(@establecimiento.images.key, options = {}, :class=>"foto-menu")%>
+				<%else%>
+					<%=cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594093085/qC1cJkpFKKKNFy5mzfoZJFfS.jpg', :class=>"foto-menu")%>
+				<%end%>
+			</div>
+
+			<div class="column is-half">
+				<div class="label-est"><strong>Ubicación</strong></div>
+				<iframe width="400" height="300" frameborder="0" style="border:0"
+				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBl5DPTWsj3HvhYTiKysLCiZEbuVPvcVBk&q=<%=@establecimiento.adress%>+<%=@comuna.nombre%>,Chile"
+				allowfullscreen></iframe>
+				<%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/pin_mybokc.svg', :class=>"estrella")%><%=@establecimiento.adress+", "+@comuna.nombre%>
+			</div>
+		</div>
+
+
+
+		<br>
+		<br>
+		<h4 class='title is-4' id="com">Comentarios <span id="suma">(<%=@suma%>)</span></h4>
+		<%if user_signed_in? %>
+			<%@matches = Match.all%>
+			<%contador = 0%>
+			<%@appointments = Appointment.all%>
+			<%@matches.each do |match|%>
+				<%if match.matched_id == current_user.id or match.matcher_id == current_user.id%>
+				<%@appointments.each do |appointment|%>
+					<% if match.id == appointment.match_id && appointment.accomplished == true && appointment.establecimiento_id == @establecimiento.id %>
+						<%contador = contador +1%>
+					<%end%>
+				<%end%>
+				<%end%>
+			<%end%>
+			<%if contador > 0 %>
+				<div id="agregar"><%= link_to  "Agregar Comentario", { :controller => "comentarios", :action => "new", 
+				:user_id => current_user.id, :negocio_id => @establecimiento.id}, :method => :get, class:"button is-link" %></div>
+			<%end%>
+		<%end%>
+		<% @comentarios = Comentario.all  %>
+		<% @comentarios.each do |comentario| %>
+		<% if comentario.negocio_id == @establecimiento.id %>
+		<div class ="box">
+			<div class="right-element">
+				<%if comentario.updated_at.to_s > comentario.created_at.to_s%>
+					<%= comentario.updated_at.in_time_zone("America/New_York").strftime("Editado el %d/%m/%Y, a las %H:%M hrs.")%>
+				<%else%>
+					<%= comentario.created_at.in_time_zone("America/New_York").strftime("Publicado el %d/%m/%Y, a las %H:%M hrs.")%>
+				<%end%>
+			</div>
+			<%user = User.find_by(id:comentario.user_id)%>
+			<div id="foto-comentario">
+				<figure class="image is-64x64">
+					<%if user.foto_perfil.attached?%>
+						<%= cl_image_tag(user.foto_perfil.key, :class => "imagen-rounded") %>
+					<%else%>
+						<%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_dqc7ji.png", :class => "imagen-rounded")%>
+					<%end%>
+				</figure>
+				<br>
+				<strong><%=user.username%></strong>
+			</div>
+			<div id="contenido-comentario">
+				<div><%=comentario.mensaje%></div>
+				<div>Calificación: <strong><%=comentario.rating%></strong>
+				<%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/star_lbotkx.svg', :class=>"estrella")%></div>
+			</div>
+			<br>
+
+			<%if user_signed_in?%>
+				<%if current_user.id == comentario.user_id%>
+					<div id="btn-com-2"><%= link_to 'Editar comentario', comentarios_edit_path(comentario.id), :method => :get, class:"button is-small"%></div>
+					<div id="btn-com"><%= link_to 'Eliminar comentario', comentario_path(comentario.id), method: :delete, data: { confirm: 'Estas segur@?'}, class:"button is-small" %></div>
+				<%elsif current_user.role == 'admin'%>
+					<div id="btn-com"><%= link_to 'Eliminar comentario', comentario_path(comentario.id), method: :delete, data: { confirm: 'Estas segur@?'}, class:"button is-small" %></div>
+				<%end%>
+			<%end%>
+		</div>
+		<%end%>
+		<%end%>
+		<br>
+
+
+	</div>
+	<div class='column is-one-fifth'></div>
+</div>

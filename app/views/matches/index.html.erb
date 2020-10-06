@@ -1,0 +1,81 @@
+
+<section class = "seccion-citas">
+  <div class="column is-one-fifth"></div>
+
+
+
+  <h4 class='title is-4'>Tus matches</h4>
+
+
+<div class="matches-cards">
+      <% @matches.each do |match| %>
+      <div class= "card",id ="card-match">
+          <%user = User.find_by(id: match.matched_id)%>
+<div class= "card-header-title">
+        <%= user.username %></div>
+
+        <div class = "card-content", id="estado-match">
+          <%if match.status%>
+              Aceptado
+          <%else%>
+              Pendiente
+          <%end%>
+          </div>
+          <div class= "card-content">
+        <%= link_to 'Ver perfil', especific_user_path(user.id) %></div>
+<div class = "card-footer">
+        <% if match.status%>
+        <div class= "card-footer-content">
+            <%=link_to 'Concretar cita', {:controller => "appointments", :action => "new", :match_id => match.id} , :method=>:get, class: 'boton-concretar-cita' %>
+</div>
+        <%end%>
+    <div class= "card-footer-content">
+        <%= link_to 'Eliminar match', list_matches_path(match.id), method: :delete, data: { confirm: 'Estas segur@?'} %>
+</div>
+</div>
+</div>
+      <% end %>
+
+
+</div>
+
+  <h4 class="title is-4">Personas que te han dado like</h4>
+
+
+
+
+<div class="matches-cards">
+      <% @matches2.each do |match| %>
+
+        <%unless match.status%>
+        <div class= "card", id="card-match">
+          <%user = User.find_by(id: match.matcher_id)%>
+          <div class="foto-perfil-match">
+          <figure class="image is-64x64">
+              <%if user.foto_perfil.attached?%>
+              <%= cl_image_tag(user.foto_perfil.key,:class => "imagen-rounded") %>
+              <%else%>
+              <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_dqc7ji.png",:class => "imagen-rounded")%>
+              <%end%>
+          </figure>
+          </div>
+<div class = "card-header-title">
+          <%= user.username %> </div>
+          <div class = "card-content", id="estado-match">
+          Pendiente</div>
+          <div class= "card-content">
+          <%= link_to 'Ver perfil', especific_user_path(user.id) %></div>
+          <card class = "card-footer">
+          <div class= "card-footer-content"> <%= link_to "Like", {:controller => "matches", :action => "create", :matcher_id => current_user.id, :matched_id=> user.id} , :method=>:post %></div>
+
+         <div class= "card-footer-content">  <%= link_to 'Eliminar match', list_matches_path(match.id), method: :delete, data: { confirm: 'Estas segur@?'} %></div>
+
+        <%end%>
+        </div>
+
+      <% end %>
+</div>
+
+
+  <div class="column is-one-fifth"></div>
+  </section>

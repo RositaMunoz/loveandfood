@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  gustos: MyString
+  comuna: MyString
+  genero: MyString
+  edad_min: 1
+  edad_max: 1
+
+two:
+  user: two
+  gustos: MyString
+  comuna: MyString
+  genero: MyString
+  edad_min: 1
+  edad_max: 1

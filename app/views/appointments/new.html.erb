@@ -1,0 +1,34 @@
+
+
+<div class= body>
+<div class ='form', id='form-citas'>
+    <div class="titulo-form">
+    <h2>Nueva Cita</h2>
+    </div>
+
+<div class ="contenido-form">
+<%= form_with(model: @appointments, method: :post) do |form|%>
+    <div class='field'>
+        <%= form.label "Fecha" %>
+        <%= date_field(:appointment, :fecha, min: Date.today) %>
+    </div>
+    <div class='field'>
+        <%= form.label "Hora" %>
+        <%= form.time_select :hora, start_hour: 9, end_hour: 22,  minute_step: 15,:ignore_date => true %>
+    </div>
+    <div class="field">
+        <label for="establecimiento_id" class="label">Seleccione un restaurant:</label>
+        <%= form.collection_select :establecimiento_id, Establecimiento.where(aceptado: 'aceptado'), :id, :nombre, prompt: true, class: "form-control" %>
+      </div>
+    <div class="actions">
+        <%= form.submit 'Enviar opción de cita',class:'button is-link'%>
+    </div>
+<% end %>
+
+
+
+
+</div>
+</div>
+<%= button_to "Todas tus citas", { :action => "index" }, :method => :get, class:'button is-link' %>
+</div>

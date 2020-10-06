@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: loveandfood
+  api_key: '548239418646985'
+  api_secret: cpdUFGhf511mxHA5N-G_y1P_hfY
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: loveandfood
+  api_key: '548239418646985'
+  api_secret: cpdUFGhf511mxHA5N-G_y1P_hfY
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: loveandfood
+  api_key: '548239418646985'
+  api_secret: cpdUFGhf511mxHA5N-G_y1P_hfY
+  enhance_image_tag: true
+  static_file_support: false

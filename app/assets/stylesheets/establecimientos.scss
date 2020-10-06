@@ -1,0 +1,156 @@
+// Place all the styles related to the Establecimientos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#section-restaurant{
+    background-color: rgba(143, 199, 184, 0.6) !important;
+    min-height: 1000px;
+    padding:30px;
+    margin:20px;
+}
+
+.restaurant-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    grid-gap: 0.5em;
+}
+
+.card{
+    height: max-content;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.card-footer {
+    font-family: "Roboto";
+    font-size: 18px;
+    content-align: space-between;
+}
+
+.button{
+    font-family: "Roboto";
+}
+.card-header-title{
+    font-family: "Roboto";
+    font-size: 24px;
+    padding: 0rem 1rem;
+}
+.card-content{
+    font-family: "Roboto";
+    padding-top: 0rem;
+    padding-bottom: .5rem;
+    padding-left:1rem;
+    scroll-padding-right: 1rem;
+}
+
+.postular-link{
+    color: #183d36;
+    text-decoration: underline;
+}
+
+.right-element {
+    color: #5c5c54;
+    font-size: small;
+    display: inline-block;
+    float: right;
+}
+
+.is-4 {
+    padding: .5rem;
+    color: #183d36 !important;
+}
+
+.imagen-rounded{
+    height: 64px !important;
+    width: 64px;
+    object-fit: cover;
+    border-radius: 10%;
+    
+}
+
+.foto-menu {
+    object-fit: contain;
+
+}
+
+.name-restaurant {
+    padding: 0.5rem;
+    font-family: "Roboto";
+    font-size: 2rem;
+    color: #363636;
+    display: flex;
+    flex-grow: 1;
+    font-weight: 700;
+    font-variant: small-caps;
+}
+
+.vl {
+    border-left: 1px solid #bbb;
+    height: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+  }
+
+hr.solid {
+    border-top: 2px solid #bbb;
+    margin: 0px;
+  }
+
+.columns {
+    padding: 2rem;
+}
+
+.under-title {
+    margin-left: 1rem;
+}
+
+#edit-est, #delete-est {
+    display: inline-block;
+    padding-top: 1rem;
+}
+
+
+#foto-comentario, #contenido-comentario {
+    display: inline-block;
+    padding: 1rem;
+}
+
+#btn-com, #btn-com-2 {
+    display: inline-block;
+    padding: .5rem;
+}
+#com, #agregar {
+    display: inline-block;
+}
+#agregar {
+    float: right;
+}
+.actions {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.label-est {
+    padding: 1rem 0rem;
+}
+
+#suma {
+    color: #bbb;
+}
+
+.boxes-com{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+    grid-gap: 0.5em;
+
+}
+
+.box {
+    margin-bottom: 1.5rem;
+}
+
+.estrella {
+    height: 22px;
+    padding-top: 5px;
+    padding-left: 3px;
+}

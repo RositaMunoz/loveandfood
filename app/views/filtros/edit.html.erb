@@ -1,0 +1,35 @@
+
+<h2>Edita tus filtros de busqueda</h2>
+
+<%= form_with(model: @filtro, url: filtro_path(@filtro.id), method: :patch) do |form| %>
+    <div class='field'>
+	    <%= form.label "Edad mínima" %><br>
+	    <%= form.number_field :edad_min, min: 18, max: 99%>
+    </div>
+
+    <div class='field'>
+	    <%= form.label "Edad máxima" %><br>
+	    <%= form.number_field :edad_max, min: 18, max: 99%>
+    </div>
+
+    <div class='field'>
+        <%= form.label "Género" %>
+        <%= form.select :genero, Filtro.genders_for_select, {}, class: "form-control" %>
+      </div>
+
+    <div class="field">
+        <%=form.label "Comuna" %><br>
+        <%= form.collection_select :comuna, Comuna.all, :id, :nombre, prompt: true, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= form.label 'Aplicar filtro por gustos' %><br />
+      <%= form.select :gustos, ['Si', 'No']%>
+    </div>
+    <br>
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+<% end %>
+
+<br>

@@ -1,0 +1,35 @@
+
+<div class='columns'>
+    <div class='column is-one-fifth'></div>
+        <div class='column'>
+            <h4 class='title is-4'>Nuevo Comentario</h4>
+
+            <%= form_with(model: @comentario, method: :post) do |form| %>
+                <div class='field'>
+                    <label class="label"><%= form.label "Contenido" %></label>
+                    <%= form.text_area :mensaje , :cols => '20', :rows => '5', class:"input"%>
+                </div>
+
+                <div class ="field">
+                    <label class='label'><%= form.label "Calificación" %></label>
+                    <%= form.select :rating, Comentario.ratings_for_select, {}, class: "form-control" %>
+                </div>
+
+                <div class="actions">
+                    
+                    <%= form.submit "Agregar comentario", class:"button is-link" %>
+                </div>
+
+            <% if @comentario.errors.any? %>
+                <% @comentario.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <%end%>
+            <%end%>
+            <%end%>
+
+            <%= link_to "Atrás", :back, id: 'boton-atras' %>
+        </div>
+    <div class="column is-one-fifth"></div>
+</div>
+
+

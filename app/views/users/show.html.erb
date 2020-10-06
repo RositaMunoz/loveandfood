@@ -1,0 +1,90 @@
+
+
+
+<section id="seccion-usuarios">
+<div class='columns'>
+<div class='column is-one-fifth'></div>
+<div class='column'>
+  <div class='columns', id="perfil">
+    <%@user = User.find(params[:id])%>
+    <div class='column is-half'>
+        <div class = "foto-perfil">
+      <%if @user.foto_perfil.attached?%>
+      <%= cl_image_tag(@user.foto_perfil.key)%>
+      <%else%>
+      <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_dqc7ji.png", :width => 400, :crop => "pad")%>
+      <%end%>
+      </div>
+      </div>
+
+    <div class='column is-half'>
+      <strong>Nombre:</strong>
+      <%=@user.name%>
+     <div class = "contenido-usuario">
+      <strong>Nombre ususario</strong>
+      <%= @user.username %>
+</div>
+<div class = "contenido-usuario">
+      <strong>Fecha de cumpleaños:</strong>
+      <%= @user.date_of_birth.strftime("%d/%m") %>
+</div>
+<div class = "contenido-usuario">
+      <strong>Edad:</strong>
+      <%= @user.age %>
+</div>
+<div class = "contenido-usuario">
+      <strong>Descripción:</strong>
+      <%= @user.description %>
+</div>
+<div class = "contenido-usuario">
+      <strong>Gustos:</strong>
+
+      <p>Deporte:
+      <%= @user.deporte%></p>
+
+      <p>Comida:
+      <%= @user.comida%></p>
+
+      <p>Música:
+      <%= @user.musica%></p>
+
+      <p>Género de Película:
+      <%= @user.genero_pelicula%></p>
+</div>
+<div class = "contenido-usuario" id= "like-show">
+      <%if current_user.username != @user.username%>
+
+      <a class="level-item" >
+        <%= link_to (cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/heart_euhw5o.svg', :class=>"like-button")), {:controller => "matches", :action => "create", :matcher_id => current_user.id, :matched_id=> @user.id}, :method=>:post, id: 'boton-like-show-usuarios'  %>
+
+      <%end%>
+      </a>
+</div>
+<div class = "contenido-usuario" id= "like-show">
+
+      <%if current_user.role == 'admin'%>
+
+
+        <a class="level-item" >
+
+<%= link_to "Eliminar Perfil", admin_destroy_user_path(@user), method: :delete, data: { confirm: "Segur@?" }, class: "button is-danger"%>
+        <%end%>
+        </a>
+
+</div>
+
+<div class = "contenido-usuario">
+
+      <%if current_user.username == @user.username%>
+        <%= link_to 'Editar mi perfil', edit_user_registration_path, class: "button is-link" %>
+      <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class='column is-one-fifth'></div>
+</div>
+</section>

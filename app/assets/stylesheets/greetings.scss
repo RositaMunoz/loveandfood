@@ -1,0 +1,121 @@
+// Place all the styles related to the Greetings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hero.is-primary.is-medium{
+    padding: 30px;
+
+}
+.hero.is-primary {
+    background-color: #EAEAEA !important;
+}
+.hero-body {
+    margin: 3px;
+    background-image: linear-gradient(to right bottom,rgba(130, 184, 173, 0.6), rgba(225,225, 225, 0.6)),
+    url(https://res.cloudinary.com/loveandfood/image/upload/v1593388715/homepage_qendgy.jpg);
+    padding: 0 !important;
+    height: 60vh;
+    background-size: cover;
+    background-position: bottom;
+    position: absolute;
+}
+.hero-head{
+    background-color: #EAEAEA;
+
+}
+
+.logo-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.logo {
+    height: 35px;
+}
+
+.title{
+    font-family: "Open Sans";
+    font-size: 30px;
+    font-variant: small-caps;
+    font-weight: 900;
+}
+
+h1 {
+    font-weight: 400;
+    display: block;
+    letter-spacing: 35px;
+    font-size: 60px;
+}
+h2 {
+    font-variant: small-caps;
+    display: block;
+    font-size: 20px;
+    font-weight: 700px;
+    letter-spacing: 10px;
+}
+.boton-principal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,80%);
+
+}
+#boton-inicio{
+    background-color:#183D36;
+    color:white;
+    font-size: 24px;
+    font-family: "Open Sans";
+    font-variant: small-caps;
+    border-color: #183D36;
+    border-radius: 10px;
+    font-weight: 700px;
+    letter-spacing: 9px;
+
+
+}
+
+.container-title{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.navbar-item{
+    font-family:"Roboto";
+    color: black !important;
+}
+.subtitle.is-4{
+    font-family:"Roboto";
+    color:#183D36;
+    text-align:center;
+    padding-top: 10px;
+    font-style: italic;
+    font-variant: small-caps;
+}
+
+.explorar {
+    background-color: #eaeaea;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom:50px;
+}
+
+#boton-explora{
+    font-family: "Roboto";
+    font-size: 16px;
+    color: #183D36;
+    font-variant: small-caps;
+    font-weight: bold;
+    border: 0;
+    background-color: #eaeaea;
+
+}
+.card-header-subtitle{
+}

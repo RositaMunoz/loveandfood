@@ -1,0 +1,146 @@
+
+<section class="hero is-primary is-medium", id="section-restaurant">
+    <h4 class='title is-4'>Restaurantes</h4>
+    <div class="restaurant-cards">
+      <% @establecimientos.each do |establecimiento| %>
+        <%if not user_signed_in?%>
+         <% if establecimiento.aceptado == "aceptado"%>
+            <div class="card">
+              <div class= "card-image">
+                <figure class ="image is 128x128">
+                  <%if establecimiento.profile_image.attached?%>
+                  <%= cl_image_tag(establecimiento.profile_image.key) %>
+                  <%else%>
+                  <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_rest_qesumv.jpg")%>
+                  <%end%>
+                </figure>
+              </div>
+              <div class ="card-header-title"><%= establecimiento.nombre %></div>
+              <div class = "card-content">
+                <small><%=establecimiento.tipo%></small><br>
+                <%= truncate(establecimiento.descripcion, :length => 70)%><br>
+                <strong>Valoración: </strong><%= establecimiento.valoracion %>
+                <%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/star_lbotkx.svg', :class=>"estrella")%></div>
+              <div class ="card-footer"> <%= link_to 'Ver', establecimiento_path(establecimiento.id) %></div>
+            </div>
+          <%end%>
+
+        <%elsif current_user.role == 'user' %>
+          <%if establecimiento.aceptado == 'aceptado' and current_user.id != establecimiento.user_id%>
+            <div class = "card">
+            <div class= "card-image">
+            <figure class ="image is 12x12">
+              <%if establecimiento.profile_image.attached?%>
+                <%= cl_image_tag(establecimiento.profile_image.key) %>
+              <%else%>
+                <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_rest_qesumv.jpg")%>
+              <%end%>
+            </figure>
+              </div>
+                <div class ="card-header-title"><%= establecimiento.nombre %></div>
+                <div class = "card-content">
+                  <small><%=establecimiento.tipo%></small><br>
+                  <%=  truncate(establecimiento.descripcion, :length => 70) %><br>
+                  <strong>Valoración: </strong><%= establecimiento.valoracion %>
+                  <%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/star_lbotkx.svg', :class=>"estrella")%></div>
+                <div class ="card-footer"> <%= link_to 'Ver', establecimiento_path(establecimiento.id) %></div>
+              </div>
+          <%end%>
+        <%elsif current_user.role == 'admin' && establecimiento.aceptado == "aceptado"%>
+            <div class = "card">
+            <div class= "card-image">
+              <figure class ="image is 128x128">
+                <%if establecimiento.profile_image.attached?%>
+                <%= cl_image_tag(establecimiento.profile_image.key) %>
+                <%else%>
+                <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_rest_qesumv.jpg")%>
+                <%end%>
+              </figure>
+              </div>
+            <div class ="card-header-title"><%= establecimiento.nombre %></div>
+            <div class = "card-content">
+              <small><%=establecimiento.tipo%></small><br>
+              <%= truncate(establecimiento.descripcion, :length => 70) %><br>
+              <strong>Valoración: </strong><%= establecimiento.valoracion %>
+              <%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/star_lbotkx.svg', :class=>"estrella")%></div>
+            <div class ="card-footer"> <%= link_to 'Ver', establecimiento_path(establecimiento.id) %></div>
+            </div>
+          <%end%>
+        <% end %>
+    </div>
+
+  <% if user_signed_in? %>
+    <% if current_user.role == 'admin'%>
+      <h4 class='title is-4'>Postulaciones</h4>
+      <div class="restaurant-cards">
+        <% @establecimientos.each do |establecimiento| %>
+          <%if establecimiento.aceptado == 'pendiente'%>
+            <div class = "card">
+              <div class= "card-image">
+                <figure class ="image is 128x128">
+                  <%if establecimiento.profile_image.attached?%>
+                    <%= cl_image_tag(establecimiento.profile_image.key) %>
+                  <%else%>
+                    <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_rest_qesumv.jpg")%>
+                  <%end%>
+                </figure>
+              </div>
+              <div class ="card-header-title"><%= establecimiento.nombre %></div>
+              <div class = "card-content">
+                <small><%=establecimiento.tipo%></small><br>
+                <%= truncate(establecimiento.descripcion, :length => 70) %></div>
+              <div class ="card-footer"> <%= link_to 'Ver', establecimiento_path(establecimiento.id) %></div>
+            </div>
+          <%end%>
+        <% end %>
+      </div>
+    <%end%>
+
+
+    <% mis_restautrantes = false%>
+      <!-- Este fragmento de codigo revisa si el usuario posee o no restaurantes -->
+      <% @establecimientos.each do |establecimiento| %>
+        <%if current_user.id == establecimiento.user_id%>
+          <%mis_restautrantes = true%>
+        <%end%>
+      <%end%>
+
+    <%if mis_restautrantes %>
+      <h4 class='title is-4'>Mis Restaurantes</h4>
+      <small><i> * Mientras la postulación no haya sido aceptada, no podrás editar las características de tu Restaurant, solo eliminar la postulación *</i></small>
+      <div class="restaurant-cards">
+        <% @establecimientos.each do |establecimiento| %>
+          <%if current_user.id == establecimiento.user_id%>
+            <div class = "card">
+              <div class= "card-image">
+                <figure class ="image is 128x128">
+                  <%if establecimiento.profile_image.attached?%>
+                    <%= cl_image_tag(establecimiento.profile_image.key) %>
+                  <%else%>
+                    <%= cl_image_tag("non_existing_id.png", :default_image => "unnamed_rest_qesumv.jpg")%>
+                  <%end%>
+                </figure>
+              </div>
+              <div class ="card-header-title"><%= establecimiento.nombre %></div>
+              <div class = "card-content">
+                <small><%=establecimiento.tipo%></small><br>
+                <%= truncate(establecimiento.descripcion, :length => 70) %><br>
+                <% if establecimiento.aceptado == 'aceptado'%>
+                  <strong>Valoración: </strong><%= establecimiento.valoracion %>
+                  <%= cl_image_tag('https://res.cloudinary.com/loveandfood/image/upload/v1594079835/star_lbotkx.svg', :class=>"estrella")%><br>
+                  <strong>Status:</strong> Aceptado</div>
+                  <div class="card-footer"><%=link_to 'Ver', establecimiento_path(establecimiento.id)%></div>
+                <%else%>
+                  <strong>Status:</strong>Postulacion pendiente</div>
+                  <div class="card-footer">
+                  <%= link_to 'Eliminar Postulación', establecimiento_path(establecimiento.id), method: :delete, data: { confirm: 'Estas segur@?'} %>
+                  </div>
+                <%end%>
+              </div>
+          <%end%>
+        <%end%>
+      </div>
+    <%end%>
+    <%= link_to 'Postular mi Restaurant', establecimientos_new_path , class: "postular-link"%>
+  <%end%>
+</section>

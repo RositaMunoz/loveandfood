@@ -1,0 +1,32 @@
+<br>
+<br>
+<br>
+<div class='columns'>
+	<div class='column is-one-third'></div>
+	<div class='column'>
+        <h4 class='title is-4'>Nuevo gusto</h4>
+        <%= form_with(model: @gusto, method: :post) do |form| %>
+            <div class='field'>
+                <label class='label'><%= form.label "Nombre" %></label>
+                <%= form.text_area :nombre, class:'input' %>
+            </div>
+            <div class='field'>
+                <label class='label'><%= form.label "Descripción" %></label>
+                <%= form.text_area :descripcion , :cols => '20', :rows => '5', class:'input'%>
+            </div>
+            <div class='field'>
+                <label class='label'><%= form.label 'Tipo' %></label>
+                <%= form.select :tipo, ['Deporte', 'Musica', 'Comida', 'Genero de pelicula'], class:'form-control'%>
+            </div>
+    
+            <div class="actions">
+                <%= form.submit 'Crear nuevo gusto', class:'button is-link' %>
+            </div>
+        <% end %>
+
+        <br>
+
+        <%= link_to 'Todos los gustos', list_gustos_path, class:'button is-link is-light' %> 
+    </div>
+    <div class='column'></div>
+</div>

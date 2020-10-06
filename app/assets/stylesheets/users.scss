@@ -1,0 +1,117 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#seccion-usuarios{
+    background-color: rgba(143, 199, 184, 0.6);
+    min-height: 1000px;
+    padding:30px;
+    margin:20px;
+}
+#boton-index-usuarios{
+     font-family:"Roboto";
+}
+#boton-show-usuarios{
+    font-family: "Open Sans";
+    font-size: 20px;
+    font-variant: small-caps;
+    color:#183D36 !important;
+
+}
+
+.filters-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: "Open Sans";
+}
+
+#columna-filtros{
+
+    padding: 30px;
+    background-color: white;
+    margin:30px;
+    border-radius:20px;
+    box-shadow: 5px 5px 5px rgba(136, 136, 136, 0.6);
+    font-family: "Open Sans";
+    max-height: 500px;
+    
+}
+ #boton-submit{
+     font-family: "Open Sans";
+
+     font-size: 18px;
+     color:#183D36;
+     background-color: white;
+     padding: 3px;
+     border-color: white;
+
+ }
+
+ #perfil{
+     padding: 30px;
+     background-color: white;
+     margin:30px;
+     border-radius:20px;
+
+     font-family: "Open Sans"
+
+ }
+ .contenido-usuario{
+     padding: 3px;
+
+ }
+ .button.is-danger{
+     font-family: "Open Sans"
+ }
+ #form-edit-user{
+     padding: 30px;
+     background-color: white;
+     margin:30px;
+     border-radius:20px;
+     box-shadow: 5px 5px 5px rgba(136, 136, 136, 0.6);
+
+ }
+ .foto-perfil{
+      clip-path: circle(50% at 50% 50%);
+      
+ }
+
+ #foto-usuario, #contenido-usuario {
+    display: inline;
+}
+
+#contenido-usuario {
+    padding: 0rem .5rem;
+}
+
+ .foto-perfil-index-users{
+     clip-path: circle(13.44% at 10.24% 48.24%);
+ }
+
+ .foto-perfil-show{
+     height:275px;
+     width:275px;
+ }
+
+.boxes-users{
+    display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+grid-gap: 0.5em;
+
+}
+.box{
+    margin-bottom: 1.5rem;
+}
+
+#like-show{
+    font-family: "Open Sans";
+    font-size: 20px;
+}
+.level-item{
+    font-size: 20px;
+}
+
+.like-button {
+    height: 25px;
+    margin: 3px 3px;
+}
+

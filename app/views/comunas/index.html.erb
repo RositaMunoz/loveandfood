@@ -1,0 +1,32 @@
+<br>
+<br>
+<br>
+<div class='columns'>
+	<div class='column is-one-fifth'></div>
+	<div class='column'>
+        <h4 class='title is-4'> Comunas </h4>
+        <div class='table-container'>
+        <table class='table is-bordered is-striped is-narrow is-hoverable is-fullwidth'>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th colapsan='3'>Acciones</th>
+            </tr>
+            </thead>
+
+            <body>
+            <% @comunas.each do |comuna| %>
+                <tr>
+                    <td><%=comuna.nombre %></td>
+                    <td><%= link_to 'Eliminar comuna', comuna_path(comuna.id), method: :delete, data: { confirm: 'Estas segur@?'} %></td>
+                </tr>
+            <%end%>
+            </body>
+        </table>
+        </div>
+        <br>
+
+        <%= button_to "Crear comuna", { :action => "new" }, :method => :get, class: 'button'%>
+    </div>
+    <div class='column is-one-fifth'></div>
+</div>  

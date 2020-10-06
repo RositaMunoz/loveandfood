@@ -1,0 +1,34 @@
+// Place all the styles related to the Matches controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.matches-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    grid-gap: 0.5em;
+}
+#matches-cards{
+    height: max-content;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+
+}
+.seccion-matches{
+    background-color: rgba(143, 199, 184, 0.6);
+    padding:30px;
+    min-height: 700px;
+
+}
+#card-match{
+    display: inline-block;
+
+
+
+}
+.foto-perfil-match{
+    height:64px;
+    width:64px;
+    clip-path: circle(50% at 50% 50%);
+    margin: 6px 20px;
+
+}

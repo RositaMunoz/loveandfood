@@ -1,0 +1,29 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Includes:
+    - app/controllers/*.rb
+    - app/models/**/*
+    - app/view/**/*
+    - config/routes.rb
+
+Layout/LineLength:
+  Max: 95
+
+Layout/TrailingEmptyLines:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+    Enabled: false
+
+Layout/IndentationConsistency:
+    Enabled: false
+
+Layout/EmptyLinesAroundArguments:
+    Enabled: false

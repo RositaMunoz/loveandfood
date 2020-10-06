@@ -1,0 +1,89 @@
+// Place all the styles related to the Appointments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.body{
+    background-image: linear-gradient(to right bottom,rgba(130, 184, 173, 0.6), rgba(225,225, 225, 0.6)),
+    url(https://res.cloudinary.com/loveandfood/image/upload/v1593388715/homepage_qendgy.jpg);
+    height: 95vh;
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    padding:30px;
+}
+.seccion-citas{
+    background-color: rgba(143, 199, 184, 0.6);
+    padding:30px;
+    margin:20px;
+    min-height: 700px;
+
+}
+
+.titulo-form{
+    font-family: "Open Sans";
+    font-size: 20px;
+    justify-content:center;
+    display: flex;
+    font-weight:300px;
+    font-style: bold;
+
+}
+.contenido-form{
+    font-family: "Open Sans";
+    font-size: 16px;
+    justify-content:center;
+    display: flex;
+    padding: 30px;
+
+
+}
+#form-citas{
+align-items: center;
+padding: 30px;
+background-color: white;
+margin-left:  400px;
+margin-right: 400px;
+margin-top: 100px;
+border-radius:20px;
+box-shadow: 5px 5px 5px rgba(136, 136, 136, 0.6);
+
+}
+.button.is-link{
+    font-family: "Open Sans";
+    font-size:16px;
+    color: white !important;
+    background-color: #183D36 !important;
+
+}
+.citas-card{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    grid-gap: 0.5em;
+}
+h4{
+    padding:10px;
+    margin:10px;
+}
+#card-cita{
+    height: max-content;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+
+}
+#card-content-citas{
+    padding:3px;
+}
+.card-footer-content{
+    padding: 10px;
+}
+.estado-cita{
+    color: #183D36;
+    font-variant: small-caps;
+}
+
+.imagen2-rounded{
+    height: 128px !important;
+    object-fit: cover;
+    border-radius: 10%;
+    
+}

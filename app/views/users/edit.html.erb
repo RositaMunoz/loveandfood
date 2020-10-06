@@ -1,0 +1,62 @@
+<h1>Editar Perfil</h1>
+
+
+<%= form_with(model: @user, url: user_path(@user), html: { method: :patch}) do |f| %>
+
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div>
+       <%= f.label :name %><br />
+       <%= f.text_field :name, autofocus: true %>
+  </div>
+  <div>
+       <%= f.label :age %><br />
+       <%= f.text_field :age, autofocus: true %>
+  </div>
+  <div>
+    <%= f.label :date_of_birth %><br />
+    <%= f.date_select :date_of_birth %>
+  </div>
+  <div>
+    <%= f.label :gender %><br />
+    <%= f.select :gender, User.genders_for_select, {}, class: "form-control" %>
+  </div>
+  <div>
+    <%= f.label :phone_number %><br />
+    <%= f.text_field :phone_number, autofocus: true %>
+  </div>
+  <div>
+    <%= f.label :description %><br />
+    <%= f.text_field :description, autofocus: true %>
+  </div>
+
+  <%if current_user.role == "admin"%>
+    <div>
+      <%= f.label :comuna_id %><br />
+      <%= f.text_field :comuna_id, autofocus: true %>
+    </div>
+  <% end %>
+  <%if current_user.role == 'admin' and current_user.username != @user.username%>
+    <div>
+      <%= f.label 'Rol' %><br />
+      <%= f.select :role, ['admin', 'user']%>
+    </div>
+  <%end%>
+  <div class="field">
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "Actualizar" %>
+  </div>
+<% end %>
